@@ -22,7 +22,7 @@
  <% end %>
 
  <%= f.input :description, placeholder: "How to..." %>
- <%= f.input :ingredient_id, collection: Ingredient.all, prompt: "Choose one" %>
+ <%= f.input :ingredient_id, collection: Ingredient.all, prompt: "Choose one", class: "form-control" %>
 
  <%= f.submit "Add dose", class: "btn btn-primary"%>
 <% end %>

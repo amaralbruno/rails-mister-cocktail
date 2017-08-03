@@ -1,11 +1,12 @@
-<center>
-  <h1>All Cocktails</h1>
-  <h2><%= link_to "Create new cocktail", new_cocktail_path %></h2>
-  <hr>
-  <ul style="list-style-type: none;">
-    <% @cocktails.each do |cocktail| %>
-      <li><h3><%= link_to cocktail.name, cocktail_path(cocktail) %><h3></li>
-      <hr>
-    <% end %>
-  </ul>
-</center>
+<div class="container text-center">
+    <h1>All Cocktails</h1>
+    <h2><%= link_to "Create new cocktail", new_cocktail_path, class: "btn btn-default" %></h2>
+    <div>
+      <% @cocktails.each do |cocktail| %>
+        <%= link_to cocktail_path(cocktail), class: "btn-default list-group-item resize-btn center-block" do %>
+            <span class="badge"><%= cocktail.ingredients.count %></span>
+            <%= cocktail.name %>
+        <% end %>
+      <% end %>
+    </div>
+</div>
