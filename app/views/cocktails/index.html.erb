@@ -1,12 +1,24 @@
 <div class="container text-center">
     <h1>All Cocktails</h1>
     <h2><%= link_to "Create new cocktail", new_cocktail_path, class: "btn btn-default" %></h2>
-    <div>
+    <div class="row">
       <% @cocktails.each do |cocktail| %>
-        <%= link_to cocktail_path(cocktail), class: "btn-default list-group-item resize-btn center-block" do %>
-            <span class="badge"><%= cocktail.ingredients.count %></span>
-            <%= cocktail.name %>
-        <% end %>
+      <% @url = "http://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{cocktail.name}" %>
+      <% site = HTTParty.get(@url) %>
+      <% img = JSON.parse(site.body) %>
+        <div class="col-xs-12 col-sm-4">
+          <div>
+            <% if img["drinks"].nil? %>
+            <img id="img" src="http://via.placeholder.com/700x700" alt="some_text" >
+            <% else %>
+              <img id="img" src="<%= img["drinks"][0]["strDrinkThumb"] %>" alt="<%= cocktail.name %>" >
+            <% end %>
+            <%= link_to cocktail_path(cocktail), class: "btn-default list-group-item resize-btn center-block" do %>
+            <p><span class="label label-success card-count"><%= cocktail.ingredients.count %></span></p>
+            <p class="card-description drink-title "><%= cocktail.name %></p>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
 </div>

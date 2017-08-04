@@ -7,6 +7,7 @@ class CocktailsController < ApplicationController
 
   def show
     @dose = Dose.new
+    @url = "http://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{@cocktail.name}"
   end
 
   def edit

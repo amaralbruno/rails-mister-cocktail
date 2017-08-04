@@ -1,5 +1,13 @@
+<% site = HTTParty.get(@url) %>
+<% img = JSON.parse(site.body) %>
+
 <center>
 <h1><%= @cocktail.name %></h1>
+<% if img["drinks"].nil? %>
+  <img id="img" src="http://via.placeholder.com/700x700" alt="some_text" >
+<% else %>
+  <img id="img" src="<%= img["drinks"][0]["strDrinkThumb"] %>" alt="some_text" >
+<% end %>
 <hr>
 <h4><%= link_to "All", cocktails_path, class: "btn btn-success"  %></h4>
 
@@ -22,7 +30,7 @@
  <% end %>
 
  <%= f.input :description, placeholder: "How to..." %>
- <%= f.input :ingredient_id, collection: Ingredient.all, prompt: "Choose one", class: "form-control" %>
+ <%= f.input :ingredient_id, collection: Ingredient.all.order(name: :asc), prompt: "Choose one", class: "form-control" %>
 
  <%= f.submit "Add dose", class: "btn btn-primary"%>
 <% end %>
